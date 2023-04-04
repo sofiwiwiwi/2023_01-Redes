@@ -2,10 +2,6 @@ import socket
 
 success = "gatito uwu"
 
-
-#arr -> image_properties
-#respuesta -> response
-
 while(success != "200: SUCCESS"):
     host = "jdiaz.inf.santiago.usm.cl"
     port = 50008
@@ -41,10 +37,7 @@ while(success != "200: SUCCESS"):
     print(f"Mensaje enviado a {host}:{port} por TCP: {msg}")
     part1 = t1.recvfrom(int(buff))[0]
     print(f"Mensaje recidibo de {host}:{port} por TCP")
-    name = f"{image_properties[0]}.png"
-    image = open(name, "wb")#SOFI Y JAVIER REVISEN ESTO
     print("Comenzando escritura de la imagen :o")
-    image.write(part1)
     t1.close()
 
     #obtencion segunda parte de la imagen con udp
@@ -58,7 +51,6 @@ while(success != "200: SUCCESS"):
     print(f"Mensaje enviado a {host}:{port} por UDP: {msg}")
     part2 = u2.recvfrom(buff)[0] 
     print(f"Mensaje recidibo de {host}:{port} por UDP")
-    image.write(part2)
     u2.close()
 
     #obtencion tercera parte de la imagen con udp
@@ -72,7 +64,6 @@ while(success != "200: SUCCESS"):
         print(f"Mensaje enviado a {host}:{port} por UDP: {msg}")
         part3 = u3.recvfrom(buff)[0]
         print(f"Mensaje recidibo de {host}:{port} por UDP")
-        image.write(part3)
         u3.close()
 
     #mensaje de verificación por tcp
@@ -80,15 +71,20 @@ while(success != "200: SUCCESS"):
     t2=socket.socket(socket.AF_INET,socket.SOCK_STREAM )  #conexion por tcp
     t2.connect((host,port)) 
     if flag:
-        complete_image = f"{part1}{part2}{part3}"
-    complete_image= f"{part1}{part2}"
+        complete_image = part1 + part2 + part3
+    complete_image= part1 + part2
     
-    t2.sendto(complete_image.encode(), (host,port))
+    t2.sendto(complete_image, (host,port))
     print(f"Mensaje enviado a {host}:{port} por TCP")
     success = t2.recvfrom(1024)[0].decode()
     print(f"Mensaje recibido de {host}:{port} por TCP: {success}")
     print("** FIN **\n")
     t2.close()
-    image.close()
 
 print("Imagen recibida :D")
+
+#Escritura de la imagen
+name = f"{image_properties[0]}.png"
+image = open(name, "wb")
+image.write(complete_image)
+image.close()
