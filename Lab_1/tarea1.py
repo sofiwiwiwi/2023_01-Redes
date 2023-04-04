@@ -17,6 +17,7 @@ while(success != "200: SUCCESS"):
     res = response.strip().split()
     print(f"Mensaje recidibo de {host}:{port} por UDP: {response}")
     u1.close()
+    print("Comenzando escritura de la imagen :o")
 
     for i in res:
         image_properties.append(i.split(":")[1])
@@ -37,7 +38,6 @@ while(success != "200: SUCCESS"):
     print(f"Mensaje enviado a {host}:{port} por TCP: {msg}")
     part1 = t1.recvfrom(int(buff))[0]
     print(f"Mensaje recidibo de {host}:{port} por TCP")
-    print("Comenzando escritura de la imagen :o")
     t1.close()
 
     #obtencion segunda parte de la imagen con udp
@@ -81,10 +81,10 @@ while(success != "200: SUCCESS"):
     print("** FIN **\n")
     t2.close()
 
-print("Imagen recibida :D")
 
 #Escritura de la imagen
 name = f"{image_properties[0]}.png"
 image = open(name, "wb")
 image.write(complete_image)
 image.close()
+print("Imagen recibida y escritura finalizada :D")
