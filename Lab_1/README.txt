@@ -1,8 +1,8 @@
        |
        / \
       / _ \
-     |.o '.|            Integrantes: Javier Pérez Pinto y Sofía Riquelme Flores
-     |'._.'|
+     |.o '.|            Integrantes: Javier Pérez Pinto    - 202073615-4
+     |'._.'|                         Sofía Riquelme Flores - 202073615-4
      |     |
    ,'|  |  |`.
   /  |  |  |  \
