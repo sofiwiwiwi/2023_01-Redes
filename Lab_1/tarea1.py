@@ -1,11 +1,11 @@
 import socket
 
 success = "gatito uwu"
-
+attempt = 1
 while(success != "200: SUCCESS"):
     host = "jdiaz.inf.santiago.usm.cl"
     port = 50008
-    print("\n** NUEVO INTENTO **")
+    print(f"\n** NUEVO INTENTO: INTENTO NUMERO {attempt}**")
 
     #obtención de datos de la imagen por udp
     msg = "GET NEW IMG DATA".encode()
@@ -22,6 +22,7 @@ while(success != "200: SUCCESS"):
     for i in res:
         image_properties.append(i.split(":")[1])
 
+    #calculo del tamaño de la imagen
     buff = int(image_properties[1])*int(image_properties[2]) *3
     image_properties = [int(i) for i in image_properties]
     port = image_properties[3]
@@ -78,7 +79,8 @@ while(success != "200: SUCCESS"):
     print(f"Mensaje enviado a {host}:{port} por TCP")
     success = t2.recvfrom(1024)[0].decode()
     print(f"Mensaje recibido de {host}:{port} por TCP: {success}")
-    print("** FIN **\n")
+    print(F"** FIN DE INTENTO {attempt}**\n")
+    attempt += 1
     t2.close()
 
 
