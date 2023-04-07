@@ -22,6 +22,7 @@ while(success != "200: SUCCESS"):
     for i in res:
         image_properties.append(i.split(":")[1])
 
+    #calculo del tamaño de la imagen
     buff = int(image_properties[1])*int(image_properties[2]) *3
     image_properties = [int(i) for i in image_properties]
     port = image_properties[3]
